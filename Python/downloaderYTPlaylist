@@ -1,0 +1,42 @@
+from pytubefix import Playlist
+from pytubefix.cli import on_progress
+from pytubefix import YouTube
+
+
+def download_video(url, output_path='.'):
+    try:
+        # Create a YouTube object with the URL
+        yt = YouTube(url)
+        
+        # Get the highest resolution stream available
+        video_stream = yt.streams.get_highest_resolution()
+        
+        print(f"Downloading: {yt.title}")
+        
+        # Download the video
+        video_stream.download(output_path)
+        
+        print("Download completed!")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+url = 'https://www.youtube.com/playlist?list=PLoudTly6Fd3dxD0EwHCMhYBf1_mUywWVs'
+# url = input("url here >")
+pl = Playlist(url)
+
+# for video in pl.videos:
+#     ys = video.streams.get_highest_resolution()
+#     ys.download()
+
+
+if __name__ == "__main__":
+    for url in pl.video_urls:
+    
+        print(url)
+        # Input the YouTube video URL
+        video_url = url
+        
+        # Optional: Specify the output path
+        output_directory = '.'
+
+        download_video(video_url, output_directory)
